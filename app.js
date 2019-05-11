@@ -7,12 +7,24 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 // Predefined api routes
-var accountRouter = require('./routes/account/index')
-var bookingRouter = require('./routes/booking/index')
-var historyRouter = require('./routes/history/index')
-var loginRouter = require('./routes/login/index')
-var searchRouter = require('./routes/search/index')
-var signupRouter = require('./routes/signup/index')
+var accountRouter = require('./routes/account/index');
+var bookingRouter = require('./routes/booking/index');
+var historyRouter = require('./routes/history/index');
+var loginRouter = require('./routes/login/index');
+var searchRouter = require('./routes/search/index');
+var signupRouter = require('./routes/signup/index');
+
+const mongoose = require('mongoose');
+
+const DATABASE = 'mongodb+srv://admin:admin@cluster0-ssemf.mongodb.net/testing_API?retryWrites=true';
+
+mongoose.connect(DATABASE, { useNewUrlParser: true });
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log('connected to database!');
+});
 
 var app = express();
 

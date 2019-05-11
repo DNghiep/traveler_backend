@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node --"
+    "start": "node ./bin/www --exec babel-node --"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -14,7 +14,8 @@
     "express": "^4.16.4",
     "mongodb": "^3.2.4",
     "mongoose": "^5.5.7",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.5.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
