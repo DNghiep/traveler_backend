@@ -16,11 +16,22 @@ router.get("/", function(req, res, next) {
     if (err) {
       res.send(err);
     } else {
-      res.send(tickets);
+      res.json(tickets);
     }
   });
 });
-
+router.get("/all", function(req, res, next) {
+  let onwer_id = req.query.onwer_id;
+  //Query
+  //query = { onwer_id: onwer_id };
+  ticketModel.find({}, (err, tickets) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(tickets);
+    }
+  });
+});
 // router.post("/add", function(req, res, next) {
 //   let n_trip = {
 //     _id: new ObjectID(),
