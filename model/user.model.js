@@ -4,12 +4,14 @@ const Schema = mongoose.Schema;
 
 const userModel = new Schema({
     _id: Schema.Types.ObjectId,
-    user_name: String,
-    account: String,
+    email: { type: String, unique: true},
     password: String,
-    email: String,
-    address: String,
-    phone: String
+    person: new Schema({
+        full_name: String,
+        citizen_id: String,
+        address: String,
+        phone: String
+    })
 })
 
 

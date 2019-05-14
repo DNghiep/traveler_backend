@@ -4,13 +4,11 @@ const Schema = mongoose.Schema;
 
 const ticketModel = new Schema({
     _id: Schema.Types.ObjectId,
-    trip_id: Schema.Types.ObjectId,
-    from: String,
-    to: String,
-    fee: Number,
     onwer_id: Schema.Types.ObjectId,
-    start_time: Date,
-    end_time: Date
+    trip_id: Schema.Types.ObjectId,
+    status: ['Paid'],
+    total_fee: Number,
+    creation_date: Date
 })
 
 module.exports = ticketModel;
