@@ -12,25 +12,48 @@ const ticketModel = mongoose.model('ticket', ticketSchema);
 /* GET home page. */
 router.get('/:userid-:tripid', function (req, res, next) {
   userModel.findById(req.params.userid, (err, user) => {
-    if(err) throw err;
+    if(err){
+      console.log(err);
+      return false;
+    } 
     console.log(`found ${user}`);
     tripModel.findById(req.params.tripid, (err, trip) => {
-      if(err) throw err;
+      if(err){
+        console.log(err);
+        return false;
+      } 
+      if(!trip){
+        res.status(400).json(trip)
+        return false;
+      }
       console.log(`found ${trip}`);
+      if(trip.seat_remain < 1){
+        console.log(trip);
+        res.status(503).json(trip);
+        return false;
+      }
       const newTicket = new ticketModel({
         _id: mongoose.Types.ObjectId(),
+        onwer_id: user._id,
         trip_id: trip._id,
-        from: trip.from,
-        to: trip.to,
-        fee: trip.fee,
-        onwer_id: mongoose.Types.ObjectId(),
-        start_time: trip.start_time,
-        end_time: trip.end_time
+        status: 'Paid',
+        total_fee: trip.base_fee,
+        creation_date: new Date()
       })
       ticketModel.create(newTicket, (err, ticket) => {
-        if(err) throw err;
+        if(err) {
+          console.log(err);
+          return false;
+        }
         console.log('ticket created');
-        res.status(201).json(ticket);
+        tripModel.update({_id: trip._id}, {$set: {seat_remain: trip.seat_remain - 1}}, {multi: false}, (err, updated_trip) => {
+          if(err){
+            console.log(err);
+            return false;
+          } 
+          console.log('trip updated');
+          res.status(201).json(ticket);
+        })
       })
     })
   })
