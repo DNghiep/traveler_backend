@@ -4,8 +4,10 @@ const Schema = mongoose.Schema;
 
 const tripModel = new Schema({
     _id: Schema.Types.ObjectId,
-    from_id: Schema.Types.ObjectId,
-    to_id: Schema.Types.ObjectId,
+    from_name: String,
+    from_location: String,
+    to_name: String,
+    to_location: String,
     base_fee: Number,
     depart_time: Date,
     arrival_time: Date,

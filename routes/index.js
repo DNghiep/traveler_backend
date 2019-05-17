@@ -15,214 +15,79 @@ const stationModel = mongoose.model('station', stationSchema);
 const promotionModel = mongoose.model('promotion', promotionSchema);
 
 
-// const newUser = new userModel({
-//   _id: mongoose.Types.ObjectId(),
-//   email: "nguyenhuy17798@gmail.com",
-//   password: "anotherhashstring",
-//   person: {
-//       full_name: "Dang Minh Ngon",
-//       citizen_id: "274663479",
-//       address: "268 Ly Thuong Kiet",
-//       phone: "0918467409"
-//   }
-// })
+function station(name, location){
+  return {name: name, location: location};
+}
 
-const newFromStation = new stationModel({
-  _id: mongoose.Types.ObjectId(),
-  name: "Ho Chi Minh",
-  location: "Ben Xe Mien Tay"
-})
+const feeList = [150000, 180000, 100000, 260000, 200000, 160000];
 
-const newToStation = new stationModel({
-  _id: mongoose.Types.ObjectId(),
-  name: "Bac Lieu",
-  location: "Ben Xe Bac Lieu"
-})
+const seatList = [30, 40, 26, 14, 4, 8];
 
-const newToStation1 = new stationModel({
-  _id: mongoose.Types.ObjectId(),
-  name: "Ca Mau",
-  location: "Ben Xa Ca Mau"
-})
+function getRandom(maxIndex) {
+  return Math.floor(Math.random() * maxIndex);
+}
 
-const newToStation2 = new stationModel({
-  _id: mongoose.Types.ObjectId(),
-  name: "Vung Tau",
-  location: "Vung Tau"
-})
+const monthList = [6, 7, 8, 9];
 
-const newToStation3 = new stationModel({
-  _id: mongoose.Types.ObjectId(),
-  name: "Ha Noi",
-  location: "Ben Xe Cau Giay"
-})
+const stationList = [
+  station("Hà Nội", "Bến xe Mỹ Đình"),
+  station("Hà Nội", "Bến xe Giáp Bát"),
+  station("Hà Nội", "Bến xe Lương Yên"),
+  station("Hà Nội", "Bến xe Nước Ngầm"),
+  station("Hà Nội", "Bến xe Gia Lâm"),
+  station("Hồ Chí Minh", "Bến xe Miền Đông"),
+  station("Hồ Chí Minh", "Bến xe Miền Tây"),
+  station("Đà Nẵng", "Bến xe trung tâm Đà Nẵng"),
+  station("Bình Thuận", "Bến xe Đức Linh"),
+  station("Yên Bái", "Bến xe Nước Mát"),
+  station("Bắc Giang", "Bến xe Lục Ngạn"),
+  station("Lâm Đồng", "Bến xe liên tỉnh Đà Lạt"),
+  station("Quãng Ninh", "Bến xe Bãi Cháy"),
+  station("Bến Tre", "Bến xe Bến Tre"),
+  station("Quảng Nam", "Bến xe Nam Phước"),
+]
 
-const newToStation4 = new stationModel({
-  _id: mongoose.Types.ObjectId(),
-  name: "Ha Tinh",
-  location: "Ben Xe Ha Tinh"
-})
+function getRandomDay() {
+  const month = monthList[getRandom(4)];
+  const day = getRandom(30);
+  const hours = getRandom(24);
+  return {depart: new Date(2019, month, day, hours, 0, 0, 0),
+    arrival: new Date(2019, month, day, hours+3, 0, 0, 0)}
+}
 
-const newTrip1 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newFromStation._id,
-  to_id: newToStation._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 11, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 14, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip2 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newToStation._id,
-  to_id: newFromStation._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 15, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 18, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip3 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newFromStation._id,
-  to_id: newToStation1._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 18, 15, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 18, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip4 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newToStation._id,
-  to_id: newFromStation._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 13, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 14, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip5 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newToStation._id,
-  to_id: newFromStation._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 15, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 18, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip6 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newToStation._id,
-  to_id: newFromStation._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 15, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 18, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip7 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newToStation3._id,
-  to_id: newToStation2._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 15, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 18, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip8 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newToStation4._id,
-  to_id: newToStation2._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 15, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 18, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
-const newTrip9 = new tripModel({
-  _id: mongoose.Types.ObjectId(),
-  from_id: newToStation._id,
-  to_id: newFromStation._id,
-  base_fee: 180000,
-  depart_time: new Date(2019, 9, 17, 15, 30, 0, 0),
-  arrival_time: new Date(2019, 9, 17, 18, 30, 0, 0),
-  seat_count: 30,
-  seat_remain: 30
-})
-
+function createTrip(number) {
+  let tripList = [];
+  for (let i = 0; i < number; i++) {
+    let station = stationList[getRandom(15)];
+    let toStation = stationList[getRandom(15)];
+    let seat = seatList[getRandom(6)];
+    let days = getRandomDay();
+    const newTrip = new tripModel({
+      _id: mongoose.Types.ObjectId(),
+      from_name: station.name,
+      from_location: station.location,
+      to_name: toStation.name,
+      to_location: toStation.location,
+      base_fee: feeList[getRandom(6)],
+      depart_time: days.depart,
+      arrival_time: days.arrival,
+      seat_count: seat,
+      seat_remain: seat
+    })
+    tripList.push(newTrip);
+  }
+  return tripList;
+}
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  tripModel.create(newTrip1, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip2, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip3, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip4, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip5, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip6, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip7, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip8, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  tripModel.create(newTrip9, (err, trip) =>{
-    if(err) console.log(err);
-    console.log(trip);
-  })
-  stationModel.create(newFromStation, (err, station) =>{
-    if(err) console.log(err);
-    console.log(station);
-  })
-  stationModel.create(newToStation, (err, station) =>{
-    if(err) console.log(err);
-    console.log(station);
-  })
-  stationModel.create(newToStation1, (err, station) =>{
-    if(err) console.log(err);
-    console.log(station);
-  })
-  stationModel.create(newToStation2, (err, station) =>{
-    if(err) console.log(err);
-    console.log(station);
-  })
-  stationModel.create(newToStation3, (err, station) =>{
-    if(err) console.log(err);
-    console.log(station);
-  })
-  stationModel.create(newToStation4, (err, station) =>{
-    if(err) console.log(err);
-    console.log(station);
+router.get('/', function (req, res, next) {
+  const tripList = createTrip(1000);
+  tripModel.create(tripList, (err, tripList) =>{
+    if(err){
+      console.log(err);
+      return false;
+    }
+    console.log('trip added!');
+    res.status(200).json(tripList);
   })
 });
 
