@@ -9,9 +9,9 @@ const ticketModel = mongoose.model("ticket", ticketSchema);
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  let onwer_id = req.query.onwer_id;
+  let owner_id = req.query.owner_id;
   //Query
-  query = { onwer_id: onwer_id };
+  query = { owner_id: owner_id };
   ticketModel.find(query, (err, tickets) => {
     if (err) {
       res.send(err);
@@ -21,7 +21,7 @@ router.get("/", function(req, res, next) {
   });
 });
 router.get("/all", function(req, res, next) {
-  let onwer_id = req.query.onwer_id;
+  let owner_id = req.query.owner_id;
   //Query
   //query = { onwer_id: onwer_id };
   ticketModel.find({}, (err, tickets) => {
