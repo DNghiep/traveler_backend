@@ -75,12 +75,13 @@ function createTrip(number) {
       seat_remain: seat
     })
     tripList.push(newTrip);
+    // console.log(newTrip);
   }
   return tripList;
 }
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  const tripList = createTrip(1000);
+  const tripList = createTrip(7000);
   tripModel.create(tripList, (err, tripList) =>{
     if(err){
       console.log(err);

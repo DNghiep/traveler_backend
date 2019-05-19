@@ -26,7 +26,7 @@ router.get('/:userid-:tripid-:quality', function (req, res, next) {
         res.status(400).json(trip)
         return false;
       }
-      console.log(`found ${trip}`);
+      // console.log(`found ${trip}`);
       if(trip.seat_remain < 1){
         console.log(trip);
         res.status(503).json(trip);
@@ -40,7 +40,11 @@ router.get('/:userid-:tripid-:quality', function (req, res, next) {
           trip_id: trip._id,
           status: 'Paid',
           total_fee: trip.base_fee,
-          creation_date: new Date()
+          creation_date: new Date(),
+          depart_time: trip.depart_time,
+          arrival_time: trip.arrival_time,
+          from_str: trip.from_name,
+          to_str: trip.to_name
         }));
       }
       ticketModel.create(ticketList, (err, ticket) => {

@@ -30,12 +30,12 @@ router.post('/', function(req, res, next) {
             res.status(500).send(err);
             return;
         }
-        console.log(`found ${search}`);
+        // console.log(`found ${search}`);
         if (!search) {
             res.status(404).json(undefined);
             return;
         }
-        console.log(search);
+        // console.log(search);
         res.status(200).json(search);
     });
 })
