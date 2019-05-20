@@ -10,6 +10,8 @@ const ticketModel = mongoose.model("ticket", ticketSchema);
 /* GET home page. */
 router.get("/", function(req, res, next) {
   let owner_id = req.query.owner_id;
+  //let owner_id = "5cda63ab39995314a3fbdd6d"
+  console.log(owner_id)
   //Query
   query = { owner_id: owner_id };
   ticketModel.find(query, (err, tickets) => {

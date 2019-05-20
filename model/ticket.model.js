@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const ticketModel = new Schema({
     _id: Schema.Types.ObjectId,
-    onwer_id: Schema.Types.ObjectId,
+    owner_id: Schema.Types.ObjectId,
     trip_id: Schema.Types.ObjectId,
     status: String,
     total_fee: Number,
