@@ -36,8 +36,8 @@ router.get('/:userid-:tripid-:quality', function (req, res, next) {
       for(let i = 0; i < req.params.quality; i ++){
         ticketList.push(new ticketModel({
           _id: mongoose.Types.ObjectId(),
-          onwer_id: user._id,
-          trip_id: trip._id,
+          owner_id: mongoose.Types.ObjectId(user._id),
+          trip_id: mongoose.Types.ObjectId(trip._id),
           status: 'Paid',
           total_fee: trip.base_fee,
           creation_date: new Date(),
