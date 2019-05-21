@@ -77,9 +77,6 @@ function sendBookingConfirm(user_id, tripJSON, ticketCount) {
             ticket_count: ticketCount
         }
 
-        var http = new XMLHttpRequest();
-        http.open('POST', api_url, true);
-
         request.post(api_url, {
             json: data
         }, (error, res, body) => {
