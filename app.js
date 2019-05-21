@@ -3,8 +3,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // Predefined api routes
 var accountRouter = require('./routes/account/index');
@@ -36,8 +34,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/getdata', indexRouter);
-app.use('/users', usersRouter);
 app.use('/api/account', accountRouter)
 app.use('/api/booking', bookingRouter)
 app.use('/api/history', historyRouter)
