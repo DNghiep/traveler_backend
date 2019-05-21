@@ -1,8 +1,9 @@
 var express = require('express');
 
 const mongoose = require('mongoose');
-const userSchema = require('../../model/user.model');
+const request = require('request');
 
+const userSchema = require('../../model/user.model');
 const userModel = mongoose.model('user', userSchema);
 
 const api_url = 'https://api.emailjs.com/api/v1.0/email/send'
@@ -36,16 +37,17 @@ function sendNewAccountEmail(user_id) {
             user_email: user.email
         }
 
-        var http = new XMLHttpRequest();
-        http.open('POST', api_url, true);
-
-        http.setRequestHeader('Content-Type', 'application/json')
-        http.onreadystatechange = function (event) {
-            if (http.readyState == 4 && http.status != 200) {
-                console.error(http.statusText);
+        request.post(api_url, {
+            json: data
+        }, (error, res, body) => {
+            if (error) {
+                console.error(error);
+                return;
             }
-        }
-        http.send(JSON.stringify(data))
+            if (res.statusCode != 200) {
+                console.error(body);
+            }
+        });
     })
 }
 
@@ -78,13 +80,17 @@ function sendBookingConfirm(user_id, tripJSON, ticketCount) {
         var http = new XMLHttpRequest();
         http.open('POST', api_url, true);
 
-        http.setRequestHeader('Content-Type', 'application/json')
-        http.onreadystatechange = function (event) {
-            if (http.readyState == 4 && http.status != 200) {
-                console.error(http.statusText);
+        request.post(api_url, {
+            json: data
+        }, (error, res, body) => {
+            if (error) {
+                console.error(error);
+                return;
             }
-        }
-        http.send(JSON.stringify(data))
+            if (res.statusCode != 200) {
+                console.error(body);
+            }
+        })
     })
 }
 

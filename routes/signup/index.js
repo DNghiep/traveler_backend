@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 
 const mail = require('../mail/index');
-const crypto = require('crypto');
 
 const mongoose = require("mongoose");
 var ObjectID = require("mongodb").ObjectID;
@@ -33,13 +32,15 @@ router.post("/", function(req, res, next) {
       if (ex_acc) {
         res.send("Email already in used");
       } else {
+        /*
         const hash = crypto.createHash('sha256');
         hash.update(new_acc.email + new_acc.password);
         var user_id = mongoose.Types.ObjectId();
+        */
         const newAcc = new userModel({
-          _id: user_id,
+          _id: mongoose.Types.ObjectId(),
           email: new_acc.email,
-          password: hash.digest('hex'),
+          password: new_acc.password,
           user_name: new_acc.user_name
         });
         userModel.create(newAcc, (err, acc) => {
