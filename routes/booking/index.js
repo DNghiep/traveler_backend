@@ -9,6 +9,9 @@ const ticketSchema = require('../../model/ticket.model');
 const userModel = mongoose.model('user', userSchema);
 const tripModel = mongoose.model('trip', tripSchema);
 const ticketModel = mongoose.model('ticket', ticketSchema);
+
+const mail = require('../mail/index');
+
 /* GET home page. */
 router.get('/:userid-:tripid-:quality', function (req, res, next) {
   userModel.findById(req.params.userid, (err, user) => {
@@ -53,6 +56,7 @@ router.get('/:userid-:tripid-:quality', function (req, res, next) {
           return false;
         }
         console.log('ticket created');
+        mail.sendBookingConfirm(mongoose.Types.ObjectId(user._id), trip, ticketList.length());
         tripModel.update({_id: trip._id}, {$set: {seat_remain: trip.seat_remain - req.params.quality}}, {multi: false}, (err, updated_trip) => {
           if(err){
             console.log(err);

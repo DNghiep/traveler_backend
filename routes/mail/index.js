@@ -37,7 +37,7 @@ function sendNewAccountEmail(user_id) {
         }
 
         var http = new XMLHttpRequest();
-        http.open('POST', url, true);
+        http.open('POST', api_url, true);
 
         http.setRequestHeader('Content-Type', 'application/json')
         http.onreadystatechange = function (event) {
@@ -54,8 +54,9 @@ function sendNewAccountEmail(user_id) {
  * 
  * @param {ObjectID} user_id The MongoDB ObjectID of user
  * @param {JSONObject} ticketJSON The object contains ticket information, queried from DB
+ * @param {JSONObject} ticketCount Integer contains number of tickets booked
  */
-function sendBookingConfirm(user_id, ticketJSON) {
+function sendBookingConfirm(user_id, tripJSON, ticketCount) {
     const template_id = "booking_template";
 
     userModel.findById(user_id, (err, user) => {
@@ -69,12 +70,13 @@ function sendBookingConfirm(user_id, ticketJSON) {
         data.template_params = {
             user_name: user.user_name,
             user_email: user.email,
-            from_ticket: ticketJSON.from_str,
-            to_ticket: ticketJSON.to_str
+            from_ticket: tripJSON.from_name,
+            to_ticket: tripJSON.to_name,
+            ticket_count: ticketCount
         }
 
         var http = new XMLHttpRequest();
-        http.open('POST', url, true);
+        http.open('POST', api_url, true);
 
         http.setRequestHeader('Content-Type', 'application/json')
         http.onreadystatechange = function (event) {
@@ -85,3 +87,8 @@ function sendBookingConfirm(user_id, ticketJSON) {
         http.send(JSON.stringify(data))
     })
 }
+
+module.exports = {
+    sendNewAccountEmail: sendNewAccountEmail,
+    sendBookingConfirm: sendBookingConfirm,
+};
