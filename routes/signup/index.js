@@ -35,10 +35,10 @@ router.post("/", function(req, res, next) {
         /*
         const hash = crypto.createHash('sha256');
         hash.update(new_acc.email + new_acc.password);
-        var user_id = mongoose.Types.ObjectId();
         */
+        var user_id = mongoose.Types.ObjectId();
         const newAcc = new userModel({
-          _id: mongoose.Types.ObjectId(),
+          _id: user_id,
           email: new_acc.email,
           password: new_acc.password,
           user_name: new_acc.user_name
